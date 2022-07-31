@@ -18,6 +18,10 @@ type Logger struct {
 	targets []Target
 }
 
+func NewLogger() Logger {
+	return Logger{}
+}
+
 func (logger Logger) Register(target Target) {
 	logger.targets = append(logger.targets, target)
 }
