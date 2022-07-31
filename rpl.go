@@ -2,7 +2,8 @@
 //
 // # Introduction
 //
-// RPL is a lite logger utility which supports serialize its Log object
+// RPL is a lite logger utility which supports serialize its Log object,
+// making it easy to show log in remote procedure.
 //
 // # Overview
 //
@@ -25,11 +26,11 @@
 //     ---------------------------------------------------------------
 //
 // RPL consists of 3 basic types:
-// Log, Target and Logger.
+// Log, Target and Source.
 //
 //  - Log transfers as plain old data, between remote and local.
-//  - Target is the output (local) or sender (remote) of Logger.
-//  - Logger is the log producer (remote), or receiver (local).
+//  - Target is the output (local) or sender (remote) of Source.
+//  - Source is the log producer (remote), or receiver (local).
 package rpl
 
 // Log transfers as plain old data, between remote and local.
@@ -37,12 +38,12 @@ type Log struct {
 	Value string `json:"value"`
 }
 
-// Target is the output (local) or sender (remote) of Logger.
+// Target is the output (local) or sender (remote) of Source.
 type Target interface {
-	Log(log Log)
+	Writer() chan<- int
 }
 
-// Logger is the log producer (remote), or receiver (local).
-type Logger interface {
+// Source is the log producer (remote), or receiver (local).
+type Source interface {
 	Register(target Target)
 }
