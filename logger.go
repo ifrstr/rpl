@@ -18,7 +18,6 @@ type Logger struct {
 	targets []Target
 }
 
-// Register a Target.
 func (logger Logger) Register(target Target) {
 	logger.targets = append(logger.targets, target)
 }
