@@ -35,12 +35,13 @@ package rpl
 
 // Log transfers as plain old data, between remote and local.
 type Log struct {
+	Level int8   `json:"level"`
 	Value string `json:"value"`
 }
 
 // Target is the output (local) or sender (remote) of Source.
 type Target interface {
-	Writer() chan<- int
+	Writer() chan<- Log
 }
 
 // Source is the log producer (remote), or receiver (local).
