@@ -13,7 +13,7 @@
 //     |                            |                                |
 //     |     R  E  M  O  T  E       |          L  O  C  A  L         |
 //     |                            |                                |
-//     |  Logger --- SenderTarget --|-- Receiver ------ FileTarget   |
+//     |  Logger ----- Sender ------|--- Receiver ----- FileTarget   |
 //     |        \                   |       \               |        |
 //     |         \                  |        \              |        |
 //     |          \                 |         \          (Write to   |
