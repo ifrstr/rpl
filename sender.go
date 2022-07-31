@@ -1,6 +1,6 @@
 package rpl
 
-// Sender is act as a Target
+// Sender acts as a Target
 // to send Log from Source to local.
 // Works on remote.
 type Sender struct {
