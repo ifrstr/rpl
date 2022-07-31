@@ -26,10 +26,10 @@ func (logger Logger) Register(target Target) {
 	logger.targets = append(logger.targets, target)
 }
 
-func (logger Logger) Log(level int8, args ...interface{}) {
+func (logger Logger) Logs(level int8, value string) {
 	log := Log{
 		Level: level,
-		Value: fmt.Sprint(args...),
+		Value: value,
 	}
 
 	for _, target := range logger.targets {
@@ -37,6 +37,10 @@ func (logger Logger) Log(level int8, args ...interface{}) {
 			t.Writer() <- l
 		}(target, log)
 	}
+}
+
+func (logger Logger) Log(level int8, args ...interface{}) {
+	logger.Logs(level, fmt.Sprint(args...))
 }
 
 func (logger Logger) Logf(level int8, format string, args ...interface{}) {
