@@ -16,10 +16,15 @@ const (
 // produce Log on remote.
 type Logger struct {
 	targets []Target
+
+	// [Ch] is the [Log] channel of [Logger].
+	Ch uint16
 }
 
-func NewLogger() Logger {
-	return Logger{}
+func NewLogger(ch uint16) Logger {
+	return Logger{
+		Ch: ch,
+	}
 }
 
 func (logger Logger) Register(target Target) {
@@ -28,6 +33,7 @@ func (logger Logger) Register(target Target) {
 
 func (logger Logger) Logs(level int8, value string) {
 	log := Log{
+		Ch:    logger.Ch,
 		Level: level,
 		Value: value,
 	}

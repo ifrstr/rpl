@@ -5,6 +5,9 @@ package rpl
 type Receiver struct {
 	targets []Target
 	c       chan Log
+
+	// ChOffset is the offset of [Log.Ch].
+	ChOffset uint16
 }
 
 func NewReceiver() Receiver {
@@ -12,7 +15,12 @@ func NewReceiver() Receiver {
 
 	go func(r Receiver) {
 		for {
-			log := <-r.c
+			originLog := <-r.c
+			log := Log{
+				Ch:    originLog.Ch + r.ChOffset,
+				Level: originLog.Level,
+				Value: originLog.Value,
+			}
 			for _, target := range r.targets {
 				go func(t Target, l Log) {
 					t.Writer() <- l
