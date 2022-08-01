@@ -13,19 +13,21 @@ type FileTarget struct {
 	file *os.File
 }
 
-func NewFileTarget(file *os.File) FileTarget {
+func NewFileTarget(file *os.File) *FileTarget {
 	fileTarget := FileTarget{
 		file: file,
 	}
 
-	go func(ft FileTarget) {
+	go func(ft *FileTarget) {
 		for {
 			log := <-ft.c
 			_, _ = ft.file.WriteString(log.Value + "\n")
 		}
-	}(fileTarget)
+	}(&fileTarget)
+
+	return &fileTarget
 }
 
-func (fileTarget FileTarget) Writer() chan<- Log {
+func (fileTarget *FileTarget) Writer() chan<- Log {
 	return fileTarget.c
 }

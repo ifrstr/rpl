@@ -7,14 +7,14 @@ type Sender struct {
 	c chan Log
 }
 
-func NewSender() Sender {
-	return Sender{}
+func NewSender() *Sender {
+	return &Sender{}
 }
 
-func (sender Sender) Writer() chan<- Log {
+func (sender *Sender) Writer() chan<- Log {
 	return sender.c
 }
 
-func (sender Sender) Reader() <-chan Log {
+func (sender *Sender) Reader() <-chan Log {
 	return sender.c
 }
