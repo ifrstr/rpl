@@ -15,7 +15,7 @@ const (
 // Logger is the most common Source,
 // produce Log on remote.
 type Logger struct {
-	targets []*Target
+	targets []Target
 
 	// [Ch] is the [Log] channel of [Logger].
 	Ch uint16
@@ -27,7 +27,7 @@ func NewLogger(ch uint16) *Logger {
 	}
 }
 
-func (logger *Logger) Register(target *Target) {
+func (logger *Logger) Register(target Target) {
 	logger.targets = append(logger.targets, target)
 }
 
@@ -39,8 +39,8 @@ func (logger *Logger) Logs(level int8, value string) {
 	}
 
 	for _, target := range logger.targets {
-		go func(t *Target, l Log) {
-			(*t).Writer() <- l
+		go func(t Target, l Log) {
+			t.Writer() <- l
 		}(target, log)
 	}
 }
