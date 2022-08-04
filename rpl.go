@@ -35,9 +35,9 @@ package rpl
 
 // Log transfers as plain old data, between remote and local.
 type Log struct {
-	Ch    uint16 `json:"ch"`
-	Level int8   `json:"level"`
-	Value string `json:"value"`
+	Ch    uint16 `json:"ch" mapstructure:"ch"`
+	Level int8   `json:"level" mapstructure:"level"`
+	Value string `json:"value" mapstructure:"value"`
 }
 
 // Target is the output (local) or sender (remote) of Source.
