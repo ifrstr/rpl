@@ -36,3 +36,7 @@ func NewFileTarget(file *os.File) *FileTarget {
 func (fileTarget *FileTarget) Writer() chan<- *Log {
 	return fileTarget.c
 }
+
+func (fileTarget *FileTarget) Close() {
+	close(fileTarget.c)
+}

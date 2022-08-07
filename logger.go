@@ -5,6 +5,7 @@ import "fmt"
 // Log levels
 const (
 	LevelSilent  int8 = 0
+	LevelFatal   int8 = 1
 	LevelError   int8 = 1
 	LevelSuccess int8 = 1
 	LevelInfo    int8 = 2
@@ -29,6 +30,12 @@ func NewLogger(ch uint16) *Logger {
 
 func (logger *Logger) Register(target Target) {
 	logger.targets = append(logger.targets, target)
+}
+
+func (logger *Logger) Close() {
+	for _, target := range logger.targets {
+		target.Close()
+	}
 }
 
 func (logger *Logger) Logs(level int8, value string) {
@@ -57,6 +64,11 @@ func (logger *Logger) Success(args ...interface{}) {
 	logger.Log(LevelSuccess, args...)
 }
 
+func (logger *Logger) Fatal(args ...interface{}) {
+	logger.Log(LevelFatal, args...)
+	logger.Close()
+}
+
 func (logger *Logger) Error(args ...interface{}) {
 	logger.Log(LevelError, args...)
 }
@@ -75,6 +87,11 @@ func (logger *Logger) Debug(args ...interface{}) {
 
 func (logger *Logger) Successf(format string, args ...interface{}) {
 	logger.Logf(LevelSuccess, format, args...)
+}
+
+func (logger *Logger) Fatalf(format string, args ...interface{}) {
+	logger.Logf(LevelFatal, format, args...)
+	logger.Close()
 }
 
 func (logger *Logger) Errorf(format string, args ...interface{}) {

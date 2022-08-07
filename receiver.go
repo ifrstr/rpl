@@ -45,3 +45,11 @@ func (receiver *Receiver) Register(target *Target) {
 func (receiver *Receiver) Writer() chan<- *Log {
 	return receiver.c
 }
+
+func (receiver *Receiver) Close() {
+	close(receiver.c)
+
+	for _, target := range receiver.targets {
+		(*target).Close()
+	}
+}

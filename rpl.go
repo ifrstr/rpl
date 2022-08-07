@@ -44,10 +44,16 @@ type Log struct {
 type Target interface {
 	// Writer returns the Log channel.
 	Writer() chan<- *Log
+
+	// Close this [rpl.Target].
+	Close()
 }
 
 // Source is the log producer (remote), or receiver (local).
 type Source interface {
 	// Register a Target.
 	Register(target Target)
+
+	// Close this [rpl.Source] and all registered [rpl.Target]s.
+	Close()
 }
