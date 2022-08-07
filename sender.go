@@ -8,7 +8,9 @@ type Sender struct {
 }
 
 func NewSender() *Sender {
-	return &Sender{}
+	return &Sender{
+		c: make(chan Log),
+	}
 }
 
 func (sender *Sender) Writer() chan<- Log {

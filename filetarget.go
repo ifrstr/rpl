@@ -15,6 +15,7 @@ type FileTarget struct {
 
 func NewFileTarget(file *os.File) *FileTarget {
 	fileTarget := FileTarget{
+		c:    make(chan Log),
 		file: file,
 	}
 

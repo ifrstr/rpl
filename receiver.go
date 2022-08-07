@@ -11,7 +11,9 @@ type Receiver struct {
 }
 
 func NewReceiver() *Receiver {
-	receiver := Receiver{}
+	receiver := Receiver{
+		c: make(chan Log),
+	}
 
 	go func(r *Receiver) {
 		for {
