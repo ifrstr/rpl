@@ -45,50 +45,50 @@ func (logger *Logger) Logs(level int8, value string) {
 	}
 }
 
-func (logger *Logger) Log(level int8, args ...any) {
+func (logger *Logger) Log(level int8, args ...interface{}) {
 	logger.Logs(level, fmt.Sprint(args...))
 }
 
-func (logger *Logger) Logf(level int8, format string, args ...any) {
+func (logger *Logger) Logf(level int8, format string, args ...interface{}) {
 	logger.Log(level, fmt.Sprintf(format, args...))
 }
 
-func (logger *Logger) Success(args ...any) {
+func (logger *Logger) Success(args ...interface{}) {
 	logger.Log(LevelSuccess, args...)
 }
 
-func (logger *Logger) Error(args ...any) {
+func (logger *Logger) Error(args ...interface{}) {
 	logger.Log(LevelError, args...)
 }
 
-func (logger *Logger) Info(args ...any) {
+func (logger *Logger) Info(args ...interface{}) {
 	logger.Log(LevelInfo, args...)
 }
 
-func (logger *Logger) Warn(args ...any) {
+func (logger *Logger) Warn(args ...interface{}) {
 	logger.Log(LevelWarn, args...)
 }
 
-func (logger *Logger) Debug(args ...any) {
+func (logger *Logger) Debug(args ...interface{}) {
 	logger.Log(LevelDebug, args...)
 }
 
-func (logger *Logger) Successf(format string, args ...any) {
+func (logger *Logger) Successf(format string, args ...interface{}) {
 	logger.Logf(LevelSuccess, format, args...)
 }
 
-func (logger *Logger) Errorf(format string, args ...any) {
+func (logger *Logger) Errorf(format string, args ...interface{}) {
 	logger.Logf(LevelError, format, args...)
 }
 
-func (logger *Logger) Infof(format string, args ...any) {
+func (logger *Logger) Infof(format string, args ...interface{}) {
 	logger.Logf(LevelInfo, format, args...)
 }
 
-func (logger *Logger) Warnf(format string, args ...any) {
+func (logger *Logger) Warnf(format string, args ...interface{}) {
 	logger.Logf(LevelWarn, format, args...)
 }
 
-func (logger *Logger) Debugf(format string, args ...any) {
+func (logger *Logger) Debugf(format string, args ...interface{}) {
 	logger.Logf(LevelDebug, format, args...)
 }
