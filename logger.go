@@ -32,14 +32,14 @@ func (logger *Logger) Register(target Target) {
 }
 
 func (logger *Logger) Logs(level int8, value string) {
-	log := Log{
+	log := &Log{
 		Ch:    logger.Ch,
 		Level: level,
 		Value: value,
 	}
 
 	for _, target := range logger.targets {
-		go func(t Target, l Log) {
+		go func(t Target, l *Log) {
 			t.Writer() <- l
 		}(target, log)
 	}

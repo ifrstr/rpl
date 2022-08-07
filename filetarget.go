@@ -9,19 +9,23 @@ import "os"
 //  - os.Stdout
 //  - os.Stderr
 type FileTarget struct {
-	c    chan Log
+	c    chan *Log
 	file *os.File
 }
 
 func NewFileTarget(file *os.File) *FileTarget {
 	fileTarget := FileTarget{
-		c:    make(chan Log),
+		c:    make(chan *Log),
 		file: file,
 	}
 
 	go func(ft *FileTarget) {
 		for {
 			log := <-ft.c
+			if log == nil {
+				break
+			}
+
 			_, _ = ft.file.WriteString(log.Value + "\n")
 		}
 	}(&fileTarget)
@@ -29,6 +33,6 @@ func NewFileTarget(file *os.File) *FileTarget {
 	return &fileTarget
 }
 
-func (fileTarget *FileTarget) Writer() chan<- Log {
+func (fileTarget *FileTarget) Writer() chan<- *Log {
 	return fileTarget.c
 }

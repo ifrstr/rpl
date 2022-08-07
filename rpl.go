@@ -43,7 +43,7 @@ type Log struct {
 // Target is the output (local) or sender (remote) of Source.
 type Target interface {
 	// Writer returns the Log channel.
-	Writer() chan<- Log
+	Writer() chan<- *Log
 }
 
 // Source is the log producer (remote), or receiver (local).
