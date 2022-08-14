@@ -38,5 +38,5 @@ func (fileTarget *FileTarget) Writer() chan<- *Log {
 }
 
 func (fileTarget *FileTarget) Close() {
-	close(fileTarget.c)
+	fileTarget.c <- nil
 }

@@ -47,7 +47,7 @@ func (receiver *Receiver) Writer() chan<- *Log {
 }
 
 func (receiver *Receiver) Close() {
-	close(receiver.c)
+	receiver.c <- nil
 
 	for _, target := range receiver.targets {
 		target.Close()
