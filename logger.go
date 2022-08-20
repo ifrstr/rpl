@@ -46,9 +46,7 @@ func (logger *Logger) Logs(level int8, value string) {
 	}
 
 	for _, target := range logger.targets {
-		go func(t Target, l *Log) {
-			t.Writer() <- l
-		}(target, log)
+		target.Writer() <- log
 	}
 }
 
